@@ -4,7 +4,6 @@ const expressJwt = require('express-jwt');
 const { errorHandler } = require('../helpers/dbErrorHandlers');
 
 exports.signup = (req, res) => {
-    console.log(req.body);
     const user = new User(req.body);
     user.save((err, user) => {
         if (err) {
@@ -35,8 +34,8 @@ exports.login = (req, res) => {
         }
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
         res.cookie("t", token, { expire: new Date() + 9999 });
-        const { _id, name, email, role } = user;
-        return res.json({ token, user: { _id, name, email, role } });
+        const { _id, name, email,standard, role } = user;
+        return res.json({ token, user: { _id, name, email, role,standard } });
 
     })
 };

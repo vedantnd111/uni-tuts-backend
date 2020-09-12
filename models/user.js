@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const { v4: uuidv4 } = require('uuid');
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -29,9 +30,9 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    history: {
-        type: Array,
-        default: []
+    standard: {
+        type: ObjectId,
+        ref:'Standard'
     }
 },
     { timestamps: true }

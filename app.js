@@ -6,6 +6,9 @@ require("dotenv").config();
 const morgan = require('morgan');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const standardRoutes=require('./routes/standard');
+const subjectRoutes=require('./routes/subject');
+const topicRoutes=require('./routes/topic');
 const expressValidator = require('express-validator');
 const cors=require('cors');
 
@@ -31,6 +34,9 @@ app.use(cors());
 //routes middleware
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use('/api',subjectRoutes);
+app.use('/api',standardRoutes);
+app.use('/api',topicRoutes);
 
 const port = process.env.PORT || 5000
 ;
