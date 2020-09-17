@@ -16,7 +16,7 @@ Router.delete('/subject/:subjectId/:userId', requireLogIn, isAdmin, remove);
 
 Router.put('/subject/:subjectId/:userId', requireLogIn, isAdmin, update);
 
-Router.get('/subject/photo/:subjectId', requireLogIn, photo);
+Router.get('/subject/photo/:subjectId', photo);
 
 Router.get('/subject/:standardId/:userId', requireLogIn, readByStandard);
 

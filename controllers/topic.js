@@ -17,23 +17,15 @@ exports.topicById = (req, res, next, id) => {
 exports.create = (req, res) => {
     let form = formidable.IncomingForm();
     form.keepExtensions = true;
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields) => {
         if (err) {
             return res.status(400).json({ error: "topic can't be added!" });
         }
-        const { name, description, url, subject, standard } = fields;
-        if (!name || !description || !url || !subject || !standard) {
+        const { name, description, url, subject } = fields;
+        if (!name || !description || !url || !subject) {
             return res.status(400).json({ error: "all fields required!" });
         }
         let topic = new Topic(fields);
-        if (files.photo) {
-            if (files.photo.size > 1000000) {
-                return res.status(403).json({ error: "size of photo should be less than 1 mb" });
-            }
-
-            topic.photo.data = fs.readFileSync(files.photo.path);
-            topic.photo.contentType = files.photo.type;
-        }
         topic.save((err, result) => {
             if (err) {
                 console.log(err);
@@ -50,13 +42,6 @@ exports.read = (req, res) => {
     return res.json(req.topic);
 };
 
-exports.photo = (req, res) => {
-    if (req.topic.photo.data) {
-        res.set('Content-Type', req.topic.photo.contentType);
-        return res.send(req.topic.photo.data);
-    }
-    next();
-};
 
 exports.readBySubject = (req, res) => {
     Topic.find({ subject: req.subject._id })
@@ -72,24 +57,16 @@ exports.update = (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
 
-    form.parse(req, (err, fields, files) => {
+    form.parse(req, (err, fields) => {
         if (err) {
-            return res.status(400).json({ error: "Image can not be uploaded!!" });
+            return res.status(400).json({ error: "topic could not be updated!!" });
         }
-        const { name, description, standard, subject, url } = fields;
-        if (!name || !description || !standard || !subject || !url) {
-            return res.json({ error: "all fields are required" });
+        const { name, description, subject, url } = fields;
+        if (!name || !description || !subject || !url) {
+            return res.status(400).json({ error: "all fields are required!!" });
         }
         let topic = req.topic;
         topic = _.extend(topic, fields);
-        if (files.photo) {
-            if (files.photo.size > 1000000) {
-                return res.status(403).json({ error: "size of photo should be less than 1 mb" });
-            }
-
-            topic.photo.data = fs.readFileSync(files.photo.path);
-            topic.photo.contentType = files.photo.type;
-        }
         topic.save((err, result) => {
             if (err) {
                 console.log(err);

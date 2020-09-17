@@ -20,19 +20,10 @@ const topicSchema = new mongoose.Schema({
         ref: "Subject",
         required: true
     },
-    standard: {
-        type: ObjectId,
-        ref: "Standard",
-        required: true
-    },
     url: {
         type: String,
         required:true,
         unique:true
-    },
-    photo:{
-        data:Buffer,
-        ContentType:String
     }
 
 },

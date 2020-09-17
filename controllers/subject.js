@@ -8,7 +8,7 @@ const topics = require('../models/topics');
 exports.subjectById = (req, res, next, id) => {
     Subject.findById(id).exec((err, subject) => {
         if (err || !subject) {
-            return res.status(400).json({ error: errorHandler(err) });
+            return res.status(400).json({ error: "no products found!!" });
         }
         req.subject = subject;
         next()
@@ -30,7 +30,7 @@ exports.create = (req, res) => {
         }
         const { name, description, standard } = fields;
         if (!name || !description || !standard) {
-            return res.json({ error: "all fields are required!!" });
+            return res.status(400).json({ error: "all fields are required!!" });
         }
         let subject = new Subject(fields);
         if (files.photo) {
@@ -43,7 +43,7 @@ exports.create = (req, res) => {
         }
         subject.save((err, result) => {
             if (err) {
-                // console.log(err);
+                console.log(err);
                 return res.status(400).json({ error: errorHandler(err) });
             }
             res.json(result);

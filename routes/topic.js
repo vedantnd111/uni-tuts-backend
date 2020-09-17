@@ -8,11 +8,9 @@ const { create, readBySubject, read, topicById, photo,update,remove } = require(
 
 Router.post('/topic/create/:userId', requireLogIn, isAdmin, create);
 
-Router.get('/topic/:subjectId', requireLogIn, readBySubject);
+Router.get('/topic/:subjectId/:userId', requireLogIn, readBySubject);
 
 Router.get('/topic/:topicId', requireLogIn, read);
-
-Router.get('/topic/photo/:topicId', requireLogIn, photo);
 
 Router.put('/topic/:topicId/:userId',requireLogIn,isAdmin,update);
 
