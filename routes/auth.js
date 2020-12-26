@@ -4,7 +4,7 @@ const { signup, login, logout, requireLogIn, isAdmin } = require("../controllers
 const { signUpValidator } = require('../validators');
 const { userById } = require('../controllers/user');
 
-Router.post('/signup/:userId', signup);
+Router.post('/signup', signup);
 
 Router.post('/login', login)
 
