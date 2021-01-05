@@ -9,8 +9,12 @@ Router.get('/secret/:userId', requireLogIn, isAuth,isAdmin, (req, res) => {
 
 Router.get('/user/:userId', requireLogIn, isAuth,read);
 
+// Router.get("/user/mail/:mailId",findByMail);
+
 Router.put('/user/:userId', requireLogIn, isAuth,update);
 
 Router.param('userId', userById);
+
+// Router.param("mailId",userByMail);
 
 module.exports = Router;

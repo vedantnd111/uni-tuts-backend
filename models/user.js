@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema({
     standard: {
         type: ObjectId,
         ref:'Standard'
+    },
+    active:{
+        type:Boolean,
+        default:false
     }
 },
     { timestamps: true }
