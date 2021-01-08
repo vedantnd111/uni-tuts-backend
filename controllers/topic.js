@@ -46,8 +46,8 @@ exports.read = (req, res) => {
 exports.readBySubject = (req, res) => {
     Topic.find({ subject: req.subject._id })
         .then((data, err) => {
-            if (err || !data) {
-                return res.status(400).json({ error: errorHandler(err) });
+            if (err || !data || data.length===0) {
+                return res.status(400).json({ error: "no topic found" });
             }
             res.status(200).json(data);
         })

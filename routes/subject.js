@@ -6,9 +6,9 @@ const { userById } = require('../controllers/user');
 const { standardById } = require('../controllers/standard');
 
 
-Router.get('/subjects', requireLogIn, list);
+Router.get('/subjects', list);
 
-Router.get('/subject/:subjectId', requireLogIn, read);
+// Router.get('/subject/:subjectId', read);
 
 Router.post('/subject/create/:userId', requireLogIn, isAdmin, create);
 
@@ -18,7 +18,7 @@ Router.put('/subject/:subjectId/:userId', requireLogIn, isAdmin, update);
 
 Router.get('/subject/photo/:subjectId', photo);
 
-Router.get('/subject/:standardId/:userId', requireLogIn, readByStandard);
+Router.get('/subject/:standardId', readByStandard);
 
 Router.param('userId', userById);
 

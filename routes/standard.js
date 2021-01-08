@@ -8,7 +8,7 @@ const { list, read, create, standardById, update, remove, photo } = require('../
 
 Router.get('/standards', list);
 
-Router.get('/standard/:standardId', requireLogIn, read);
+Router.get('/standard/:standardId', read);
 
 Router.post('/standard/create/:userId', requireLogIn, isAuth, isAdmin, create);
 

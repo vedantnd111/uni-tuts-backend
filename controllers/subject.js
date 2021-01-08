@@ -8,6 +8,8 @@ const topics = require('../models/topics');
 exports.subjectById = (req, res, next, id) => {
     Subject.findById(id).exec((err, subject) => {
         if (err || !subject) {
+            console.log("error: ",err);
+            console.log("subject: ",subject);
             return res.status(400).json({ error: "no products found!!" });
         }
         req.subject = subject;
@@ -127,8 +129,8 @@ exports.readByStandard = (req, res) => {
     const standardid = req.standard._id;
     Subject.find({ standard: standardid })
         .then((subjects,err) => {
-            if (err || !subjects) {
-                return res.status(400).json({ error: "no topics found!!" });
+            if (err || !subjects || subjects.length===0) {
+                return res.status(400).json({ error: "no subjects found!!" });
             }
             res.status(200).json(subjects);
         })
